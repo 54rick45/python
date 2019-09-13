@@ -5,7 +5,7 @@ import string
 import time
 import numpy as np
 import pandas as pd
-def step1():
+def step1():#取得民宿名稱與網址
     import requests
     from bs4 import BeautifulSoup
     import csv
@@ -37,7 +37,7 @@ def step1():
                 #print("連結：" + BB.get('kid'))
                 TEMPLIST_BBlink.append(BB.get('kid'))
     url_southbeach_face='http://uukt.com.tw/inn-list/south-beach-face-sea/'
-    browser = webdriver.Chrome() 
+    browser = webdriver.Chrome() #開瀏覽器自動化程式，抓下一頁的資料，後面類似重複步驟多次
     browser.get(url_southbeach_face)
     soup = BeautifulSoup(browser.page_source, "html.parser")
 
@@ -55,8 +55,8 @@ def step1():
     time.sleep(3)
     soup = BeautifulSoup(browser.page_source, "html.parser")
 
-    BBlist = soup.find_all('h2', class_='name')
-    BBlink = soup.find_all('div', class_="brief")
+    BBlist = soup.find_all('h2', class_='name')#民宿名稱
+    BBlink = soup.find_all('div', class_="brief")#網站編號
     for BB in BBlist:
               #print("民宿：" + BB.text)
               BB.text.lstrip()
@@ -139,7 +139,7 @@ def step2(url,code):
         content=soup.find_all('span', class_="text")
         for contents in content:
             c=contents.string
-            if contents.string.count('屏東')<1:
+            if contents.string.count('屏東')<1:#屏東使用
                 c=re.sub("[^0-9]",'',contents.string)
             cont.append(c)
             
